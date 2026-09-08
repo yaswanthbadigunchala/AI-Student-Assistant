@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Student Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            🎓 <span>StudyAI</span>
+        </div>
+
+        <nav>
+            <button class="nav-item active" onclick="showSection('dashboard')">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-item" onclick="showSection('chat')">
+                🤖 AI Assistant
+            </button>
+
+            <button class="nav-item" onclick="showSection('tasks')">
+                ✅ Tasks
+            </button>
+
+            <button class="nav-item" onclick="showSection('notes')">
+                📝 Notes
+            </button>
+
+            <button class="nav-item" onclick="showSection('planner')">
+                📅 Study Planner
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>AI Student Assistant</p>
+            <small>Study smarter, not harder.</small>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="page-title">Dashboard</h1>
+                <p>Your personal academic companion.</p>
+            </div>
+
+            <div class="student-profile">
+                <div class="avatar">S</div>
+                <div>
+                    <strong>Student</strong>
+                    <small>Welcome back!</small>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="section active-section">
+
+            <div class="welcome-banner">
+
+                <div>
+                    <h2>Welcome back! 👋</h2>
+
+                    <p>
+                        Stay organized and make progress with your studies.
+                    </p>
+                </div>
+
+                <button onclick="showSection('chat')" class="primary-btn">
+                    Ask AI 🤖
+                </button>
+
+            </div>
+
+
+            <!-- Statistics -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+
+                    <div>
+                        <span>Total Tasks</span>
+                        <h3 id="totalTasks">0</h3>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+
+                    <div>
+                        <span>Pending Tasks</span>
+                        <h3 id="pendingTasks">0</h3>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+
+                    <div>
+                        <span>Completed</span>
+                        <h3 id="completedTasks">0</h3>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+
+                    <div>
+                        <span>Total Notes</span>
+                        <h3 id="totalNotes">0</h3>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Quick Actions -->
+
+            <div class="content-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+
+                    <div class="quick-actions">
+
+                        <button onclick="showSection('chat')">
+                            🤖
+                            <span>Ask AI</span>
+                        </button>
+
+                        <button onclick="showSection('tasks')">
+                            ✅
+                            <span>Add Task</span>
+                        </button>
+
+                        <button onclick="showSection('notes')">
+                            📝
+                            <span>Create Note</span>
+                        </button>
+
+                        <button onclick="showSection('planner')">
+                            📅
+                            <span>Study Plan</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h2>About StudyAI</h2>
+                    </div>
+
+                    <p class="about-text">
+                        StudyAI helps students manage academic tasks,
+                        organize notes, ask questions, and create
+                        personalized study plans.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= AI CHAT ================= -->
+
+        <section id="chat" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>AI Study Assistant 🤖</h2>
+
+                    <p>
+                        Ask questions and get help with your studies.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="chat-container">
+
+                <div id="chatMessages" class="chat-messages">
+
+                    <div class="message ai-message">
+
+                        <div class="message-avatar">
+                            🤖
+                        </div>
+
+                        <div class="message-content">
+
+                            <strong>StudyAI</strong>
+
+                            <p>
+                                Hello! 👋 I'm your AI Student Assistant.
+                                Ask me anything about your studies.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chat-input-area">
+
+                    <textarea
+                        id="chatInput"
+                        placeholder="Ask a question about your studies..."
+                        rows="2"></textarea>
+
+                    <button onclick="sendMessage()" class="send-btn">
+                        Send ➤
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TASKS ================= -->
+
+        <section id="tasks" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Task Manager ✅</h2>
+
+                    <p>
+                        Manage assignments and academic tasks.
+                    </p>
+                </div>
+
+                <button onclick="openTaskForm()" class="primary-btn">
+                    + Add Task
+                </button>
+
+            </div>
+
+
+            <!-- Add Task Form -->
+
+            <div id="taskForm" class="card form-card hidden">
+
+                <h3>Add New Task</h3>
+
+                <input
+                    type="text"
+                    id="taskTitle"
+                    placeholder="Task title">
+
+                <textarea
+                    id="taskDescription"
+                    placeholder="Description"></textarea>
+
+                <input
+                    type="date"
+                    id="taskDueDate">
+
+                <select id="taskPriority">
+
+                    <option value="Low">
+                        Low Priority
+                    </option>
+
+                    <option value="Medium" selected>
+                        Medium Priority
+                    </option>
+
+                    <option value="High">
+                        High Priority
+                    </option>
+
+                </select>
+
+
+                <div class="form-buttons">
+
+                    <button
+                        onclick="addTask()"
+                        class="primary-btn">
+                        Save Task
+                    </button>
+
+                    <button
+                        onclick="closeTaskForm()"
+                        class="secondary-btn">
+                        Cancel
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="taskList" class="task-list">
+
+                <!-- Tasks will appear here -->
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= NOTES ================= -->
+
+        <section id="notes" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Study Notes 📝</h2>
+
+                    <p>
+                        Organize your study materials.
+                    </p>
+                </div>
+
+                <button onclick="openNoteForm()" class="primary-btn">
+                    + Add Note
+                </button>
+
+            </div>
+
+
+            <!-- Note Form -->
+
+            <div id="noteForm" class="card form-card hidden">
+
+                <h3>Create New Note</h3>
+
+                <input
+                    type="text"
+                    id="noteTitle"
+                    placeholder="Note title">
+
+                <input
+                    type="text"
+                    id="noteSubject"
+                    placeholder="Subject">
+
+                <textarea
+                    id="noteContent"
+                    placeholder="Write your notes here..."
+                    rows="6"></textarea>
+
+
+                <div class="form-buttons">
+
+                    <button
+                        onclick="addNote()"
+                        class="primary-btn">
+                        Save Note
+                    </button>
+
+                    <button
+                        onclick="closeNoteForm()"
+                        class="secondary-btn">
+                        Cancel
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="notesList" class="notes-grid">
+
+                <!-- Notes will appear here -->
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STUDY PLANNER ================= -->
+
+        <section id="planner" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>AI Study Planner 📅</h2>
+
+                    <p>
+                        Create a personalized study plan.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="planner-card">
+
+                <label>
+                    What are you studying?
+                </label>
+
+                <textarea
+                    id="plannerSubjects"
+                    placeholder="Example: DBMS, Python, Operating Systems, Mathematics"></textarea>
+
+
+                <label>
+                    Exam date
+                </label>
+
+                <input
+                    type="date"
+                    id="plannerDate">
+
+
+                <label>
+                    Available study hours per day
+                </label>
+
+                <input
+                    type="number"
+                    id="plannerHours"
+                    min="1"
+                    max="12"
+                    value="3">
+
+
+                <button
+                    onclick="generateStudyPlan()"
+                    class="primary-btn">
+                    Generate Study Plan ✨
+                </button>
+
+            </div>
+
+
+            <div
+                id="studyPlanResult"
+                class="study-plan-result hidden">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+
+</html>
